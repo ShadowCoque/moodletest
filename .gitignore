@@ -59,3 +59,7 @@ moodle-plugin-ci.phar
 phpcs.xml
 jsconfig.json
 UPGRADING-CURRENT.md
+
+# propios
+/local/codechecker
+/local/adminer
