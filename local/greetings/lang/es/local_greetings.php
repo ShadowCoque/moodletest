@@ -15,18 +15,28 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Plugin strings are defined here.
  *
  * @package     local_greetings
+ * @category    string
  * @copyright   2025 Admin <admin.local@moodle.local>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die(); //se pone esta linea para archivos que no se acceden directamente como lib.php, version.php, pero no es necesario
-// en sripts de entrada como view.php e index.php
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_greetings';
-$plugin->release = '0.1.0';
-$plugin->version = 2025042705;
-$plugin->requires = 2022112800;
-$plugin->maturity = MATURITY_ALPHA;
+$string['greetingloggedinuser'] = 'Saludos, {$a}.';
+$string['greetinguser'] = 'Saludos, usuario.';
+$string['pluginname'] = 'Saludos';
+
+// Para el formulario
+$string['yourmessage'] = 'Tu mensaje';
+
+// Para ver quien posteo
+$string['postedby'] = 'Posteado por {$a}.';
+
+$string['greetinguserau'] = 'Hello, {$a}.';
+$string['greetinguseres'] = 'Hola, {$a}.';
+$string['greetinguserfj'] = 'Bula, {$a}.';
+$string['greetingusernz'] = 'Kia Ora, {$a}.';
+

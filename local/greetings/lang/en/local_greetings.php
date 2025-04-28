@@ -29,6 +29,12 @@ $string['greetingloggedinuser'] = 'Greetings, {$a}.';
 $string['greetinguser'] = 'Greetings, user.';
 $string['pluginname'] = 'Greetings';
 
+// Para el formulario
+$string['yourmessage'] = 'Your message';
+
+// Para ver quien posteo
+$string['postedby'] = 'Posted by {$a}.';
+
 $string['greetinguserau'] = 'Hello, {$a}.';
 $string['greetinguseres'] = 'Hola, {$a}.';
 $string['greetinguserfj'] = 'Bula, {$a}.';

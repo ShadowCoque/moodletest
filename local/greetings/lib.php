@@ -18,13 +18,13 @@ defined('MOODLE_INTERNAL') || die();
  * @param context_course $context The context of the course
  */
 
- /*function local_greetings_extend_navigation_frontpage(navigation_node $frontpage) {
+ function local_greetings_extend_navigation_frontpage(navigation_node $frontpage) {
     $frontpage->add(
         get_string('pluginname', 'local_greetings'),
         new moodle_url('/local/greetings/index.php'),
         navigation_node::TYPE_CUSTOM,
     );
-}*/
+}
 /*
 function local_greetings_extend_navigation_course(navigation_node $navigation, stdClass $course, context_course $context) {
     global $PAGE;
@@ -51,7 +51,7 @@ function local_greetings_extend_navigation_course(navigation_node $navigation, s
     );
 }*/
 
-function local_greetings_extend_settings_navigation(settings_navigation $settingsnav, context $context) {
+/*function local_greetings_extend_settings_navigation(settings_navigation $settingsnav, context $context) {
     global $PAGE;
 
     // Asegúrate de que estamos en un módulo de actividad y que es una tarea.
@@ -76,7 +76,7 @@ function local_greetings_extend_settings_navigation(settings_navigation $setting
             'localgreetings'
         );
     }
-}
+}*/
 
 
 /**
@@ -92,7 +92,7 @@ function local_greetings_get_greeting($user) {
 
     $country = $user->country;
     switch ($country) {
-        case 'ES':
+        case 'ES' || 'EC':
             $langstr = 'greetinguseres';
             break;
         default:
