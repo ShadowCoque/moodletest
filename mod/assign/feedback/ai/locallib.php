@@ -12,10 +12,6 @@ class assign_feedback_ai extends assign_feedback_plugin {
         return true;
     }
 
-    public function is_visible() {
-        return true;
-    }
-
     public function get_settings(MoodleQuickForm $mform) {
         // Aquí puedes agregar configuraciones específicas para tu plugin si es necesario.
     }
@@ -79,7 +75,15 @@ class assign_feedback_ai extends assign_feedback_plugin {
         return false;
     }
 
-    public function upgrade($grade) {
-        return false;
+    public function upgrade(
+        context $oldcontext,
+        stdClass $oldassignment,
+        stdClass $oldsubmissionorgrade,
+        stdClass $submissionorgrade,
+        &$log
+    ) {
+        // No necesitas hacer nada especial en tu plugin por ahora.
+        return true;
     }
+    
 }

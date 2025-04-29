@@ -30,3 +30,5 @@ $string['instructions'] = 'Instructions for AI';
 $string['sendtoai'] = 'Send to AI';
 $string['aigradinginfo'] = 'Enter any special instructions you want to send to the AI for grading.';
 $string['pluginname'] = 'AI Grading';
+$string['enabled'] = 'Enable AI Grading';
+$string['enabled_help'] = 'If enabled, teachers will be able to use AI Grading as a method of feedback on assignments.';
