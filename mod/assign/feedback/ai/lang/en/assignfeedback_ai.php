@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['aigrading'] = 'AI Grading';
 $string['instructions'] = 'Instructions for AI';
 $string['sendtoai'] = 'Send to AI';
 $string['aigradinginfo'] = 'Enter any special instructions you want to send to the AI for grading.';

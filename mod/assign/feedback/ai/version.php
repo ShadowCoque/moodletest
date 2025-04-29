@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'assignfeedback_ai';
 $plugin->release = '0.1.0';
-$plugin->version = 2025042700;
+$plugin->version = 2025042804;
 $plugin->requires = 2022112800;
 $plugin->maturity = MATURITY_ALPHA;
