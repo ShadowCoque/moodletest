@@ -3,41 +3,25 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Extiende el menú de navegación de ajustes para mostrar el enlace de AI Grading.
+ * Extiende la navegación de settings para agregar AI Grading en la tarea.
  *
- * @param settings_navigation $settingsnav
- * @param navigation_node $node
+ * @param settings_navigation $settings
+ * @param navigation_node $assignmentnode
  */
-function assignfeedback_ai_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node) {
+function assignfeedback_ai_extend_settings_navigation(settings_navigation $settings, navigation_node $assignmentnode) {
     global $PAGE;
 
-    if (!has_capability('mod/assign:grade', $PAGE->context)) {
-        return;
+    if ($PAGE->cm && $PAGE->cm->modname === 'assign') {
+        $url = new moodle_url('/mod/assign/feedback/ai/feedback.php', [
+            'id' => $PAGE->cm->id,
+        ]);
+        $assignmentnode->add(
+            get_string('aigrading', 'assignfeedback_ai'), // Título del enlace
+            $url,
+            navigation_node::TYPE_SETTING, // Tipo: Ajuste
+            null,
+            'assignfeedback_ai', // Key única para el nodo
+            new pix_icon('i/grades', '') // Ícono de calificación opcional
+        );
     }
-
-    // Asegúrate de que tienes un cmid en la URL.
-    $cmid = optional_param('id', 0, PARAM_INT);
-    $userid = optional_param('userid', 0, PARAM_INT); // Puedes pasarlo por la URL si es necesario.
-
-    if (!$cmid) {
-        return;
-    }
-
-    // Construir URL del formulario AI.
-    $url = new moodle_url('/mod/assign/feedback/ai/feedback.php', [
-        'id' => $cmid,
-        'userid' => $userid
-    ]);
-
-    $linkname = get_string('aigrading', 'assignfeedback_ai');
-
-    // Agregar el nodo dentro del menú "More" (settingsnav).
-    $node->add(
-        $linkname,
-        $url,
-        navigation_node::TYPE_SETTING,
-        null,
-        'assignfeedback_ai_link',
-        new pix_icon('i/settings', '')
-    );
 }
