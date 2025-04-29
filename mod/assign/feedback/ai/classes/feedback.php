@@ -4,17 +4,9 @@ namespace assignfeedback_ai;
 
 defined('MOODLE_INTERNAL') || die();
 
-use assign_feedback_plugin;
-use MoodleQuickForm;
-use stdClass;
-use settings_navigation;
-use navigation_node;
-use moodle_url;
-use pix_icon;
+class feedback extends \assign_feedback_plugin {
 
-class feedback extends assign_feedback_plugin {
-
-    public function get_form_elements($submission, MoodleQuickForm $mform, stdClass $data) {
+    public function get_form_elements($submission, \MoodleQuickForm $mform, \stdClass $data) {
         $mform->addElement('header', 'aiheader', get_string('aigrading', 'assignfeedback_ai'));
 
         $mform->addElement('textarea', 'instructions', get_string('instructions', 'assignfeedback_ai'), 'wrap="virtual" rows="5" cols="50"');
@@ -23,11 +15,11 @@ class feedback extends assign_feedback_plugin {
         return true; // Muy importante devolver true
     }
 
-    public function save(stdClass $grade, stdClass $data) {
+    public function save(\stdClass $grade, \stdClass $data) {
         global $DB;
 
         if (!empty($data->instructions)) {
-            $record = new stdClass();
+            $record = new \stdClass();
             $record->gradeid = $grade->id;
             $record->instructions = $data->instructions;
             $DB->insert_record('assignfeedback_ai', $record);
@@ -37,26 +29,26 @@ class feedback extends assign_feedback_plugin {
     }
 
     /**
-     * Extiende el menú de navegación de settings del módulo assign.
+     * Muestra contenido extra cuando el profesor está calificando (por ejemplo, el botón AI Grading).
      */
-    public function extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node = null) {
-        global $USER;
+    public function view($grade, $submission) {
+        global $PAGE, $USER, $OUTPUT;
 
-        // Construir URL de destino.
-        $cm = $this->assignment->get_course_module();
-        $url = new moodle_url('/mod/assign/feedback/ai/feedback.php', [
-            'id' => $cm->id,
-            'userid' => $USER->id
-        ]);
+        // Construir URL hacia nuestro feedback.php personalizado.
+        $params = [
+            'id' => $this->assignment->get_course_module()->id,  // cmid (assign instance)
+            'userid' => $submission->userid                      // usuario a calificar
+        ];
+        $url = new \moodle_url('/mod/assign/feedback/ai/feedback.php', $params);
 
-        // Crear un nuevo nodo en la navegación.
-        $node->add(
-            get_string('aigrading', 'assignfeedback_ai'), // Título del enlace.
-            $url,                                        // URL a donde redirige.
-            navigation_node::TYPE_SETTING,               // Tipo: es un ajuste.
-            null,
-            'assignfeedback_ai_link',                    // ID interno del nodo.
-            new pix_icon('i/settings', '')                // Icono opcional.
+        // Crear el botón de enlace.
+        $button = \html_writer::link(
+            $url,
+            get_string('aigrading', 'assignfeedback_ai'), // Texto del botón.
+            ['class' => 'btn btn-primary'] // Bootstrap para estilo bonito.
         );
+
+        // Devolver el botón como contenido.
+        return $OUTPUT->container($button, 'assignfeedback_ai_button');
     }
 }

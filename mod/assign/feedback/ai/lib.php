@@ -16,12 +16,21 @@ function assignfeedback_ai_extend_settings_navigation(settings_navigation $setti
             'id' => $PAGE->cm->id,
         ]);
         $assignmentnode->add(
-            get_string('aigrading', 'assignfeedback_ai'), // Título del enlace
+            get_string('aigrading', 'assignfeedback_ai'), // Texto del enlace
             $url,
-            navigation_node::TYPE_SETTING, // Tipo: Ajuste
+            navigation_node::TYPE_SETTING, // Tipo de nodo
             null,
-            'assignfeedback_ai', // Key única para el nodo
-            new pix_icon('i/grades', '') // Ícono de calificación opcional
+            'assignfeedback_ai', // Identificador único del nodo
+            new pix_icon('i/grades', '') // Ícono (opcional)
         );
     }
+}
+
+/**
+ * Indica si el plugin de feedback AI está habilitado.
+ *
+ * @return bool
+ */
+function assignfeedback_ai_is_enabled() {
+    return true;
 }
