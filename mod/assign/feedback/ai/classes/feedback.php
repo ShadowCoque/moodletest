@@ -4,9 +4,17 @@ namespace assignfeedback_ai;
 
 defined('MOODLE_INTERNAL') || die();
 
-class feedback extends \assign_feedback_plugin {
+use assign_feedback_plugin;
+use MoodleQuickForm;
+use stdClass;
+use settings_navigation;
+use navigation_node;
+use moodle_url;
+use pix_icon;
 
-    public function get_form_elements($submission, \MoodleQuickForm $mform, \stdClass $data) {
+class feedback extends assign_feedback_plugin {
+
+    public function get_form_elements($submission, MoodleQuickForm $mform, stdClass $data) {
         $mform->addElement('header', 'aiheader', get_string('aigrading', 'assignfeedback_ai'));
 
         $mform->addElement('textarea', 'instructions', get_string('instructions', 'assignfeedback_ai'), 'wrap="virtual" rows="5" cols="50"');
@@ -15,17 +23,40 @@ class feedback extends \assign_feedback_plugin {
         return true; // Muy importante devolver true
     }
 
-    public function save(\stdClass $grade, \stdClass $data) {
-        // Aquí deberías guardar los datos recibidos.
+    public function save(stdClass $grade, stdClass $data) {
         global $DB;
 
         if (!empty($data->instructions)) {
-            $record = new \stdClass();
+            $record = new stdClass();
             $record->gradeid = $grade->id;
             $record->instructions = $data->instructions;
             $DB->insert_record('assignfeedback_ai', $record);
         }
 
         return true;
+    }
+
+    /**
+     * Extiende el menú de navegación de settings del módulo assign.
+     */
+    public function extend_settings_navigation(settings_navigation $settingsnav, navigation_node $node = null) {
+        global $USER;
+
+        // Construir URL de destino.
+        $cm = $this->assignment->get_course_module();
+        $url = new moodle_url('/mod/assign/feedback/ai/feedback.php', [
+            'id' => $cm->id,
+            'userid' => $USER->id
+        ]);
+
+        // Crear un nuevo nodo en la navegación.
+        $node->add(
+            get_string('aigrading', 'assignfeedback_ai'), // Título del enlace.
+            $url,                                        // URL a donde redirige.
+            navigation_node::TYPE_SETTING,               // Tipo: es un ajuste.
+            null,
+            'assignfeedback_ai_link',                    // ID interno del nodo.
+            new pix_icon('i/settings', '')                // Icono opcional.
+        );
     }
 }
