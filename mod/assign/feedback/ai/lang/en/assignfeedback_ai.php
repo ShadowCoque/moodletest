@@ -32,3 +32,15 @@ $string['aigradinginfo'] = 'Enter any special instructions you want to send to t
 $string['pluginname'] = 'AI Grading';
 $string['enabled'] = 'Enable AI Grading';
 $string['enabled_help'] = 'If enabled, teachers will be able to use AI Grading as a method of feedback on assignments.';
+
+$string['description'] = 'Description';
+$string['rubric'] = 'Rubric';
+$string['solution'] = 'Solution (upload 1 or more ideal answers)';
+$string['training'] = 'Training to model (upload 1 or more graded examples)';
+$string['feedbacksummary'] = 'AI Feedback (summary)';
+$string['nofeedbackyet'] = 'No feedback has been generated yet.';
+$string['satisfiedquestion'] = 'Are you satisfied with the grade?';
+$string['yes'] = 'Yes';
+$string['no'] = 'No';
+$string['sendtoai'] = 'Send to AI';
+

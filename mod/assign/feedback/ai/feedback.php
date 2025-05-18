@@ -1,52 +1,47 @@
 <?php
-// Parte 1: Seguridad básica.
-require_once(__DIR__ . '/../../../../config.php'); // Subimos 5 niveles desde mod/assign/feedback/ai hasta raíz para incluir config.php.
+// Este archivo es parte del plugin assignfeedback_ai.
+// Muestra y procesa el formulario personalizado con archivos y opciones de evaluación por IA.
 
-require_login(); // Asegurarnos que el usuario está logueado.
+require_once('../../../../config.php');
+require_once($CFG->dirroot . '/mod/assign/feedback/ai/classes/form/aiform.php');
 
-// Parte 2: Recuperar parámetros básicos necesarios.
-$cmid = required_param('id', PARAM_INT); // El ID del course module (asignación). --- Si lo recupera de la url
-$userid = optional_param('userid', 0, PARAM_INT); // El ID del estudiante (puede ser opcional). --- Si lo recupera de la url
+$id = required_param('id', PARAM_INT);        // ID del módulo (asignación).
+$userid = optional_param('userid', 0, PARAM_INT); // ID del estudiante (opcional por ahora).
 
-// Obtener el contexto de la actividad.
-$cm = get_coursemodule_from_id('assign', $cmid, 0, false, MUST_EXIST);
-// Obtener también el curso relacionado.
-$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
-// Establecer correctamente el contexto de la página.
-$PAGE->set_cm($cm, $course);
-$PAGE->set_context(context_module::instance($cm->id));
+// Obtener información del módulo y del curso.
+$cm = get_coursemodule_from_id('assign', $id, 0, false, MUST_EXIST);
+$course = get_course($cm->course); // <- NECESARIO para evitar errores
+$context = context_module::instance($cm->id);
 
+// Validar que el usuario haya iniciado sesión y tenga acceso al módulo.
+require_login($course, false, $cm);
 
-
-// Parte 3: Configurar la página.
-$PAGE->set_url(new moodle_url('/mod/assign/feedback/ai/feedback.php', ['id' => $cmid, 'userid' => $userid]));
+// Configurar la página con el cm y el curso.
+$PAGE->set_cm($cm, $course); // <- Esta línea es crucial para navegación
+$PAGE->set_url(new moodle_url('/mod/assign/feedback/ai/feedback.php', ['id' => $id, 'userid' => $userid]));
 $PAGE->set_title(get_string('pluginname', 'assignfeedback_ai'));
 $PAGE->set_heading(get_string('pluginname', 'assignfeedback_ai'));
 $PAGE->set_pagelayout('standard');
 
-// Parte 4: Instanciar el formulario de IA.
-require_once($CFG->dirroot . '/mod/assign/feedback/ai/classes/form/aiform.php');
+// Instanciar el formulario.
+$formdata = ['id' => $id, 'userid' => $userid, 'context' => $context];
+$mform = new \assignfeedback_ai\form\aiform(null, $formdata);
 
-$formdata = ['id' => $cmid, 'userid' => $userid];
-$mform = new \assignfeedback_ai\form\ai_form(null, $formdata);
-
-// Parte 5: Procesar el formulario.
+// Procesamiento del formulario.
 if ($mform->is_cancelled()) {
-    // Si el usuario cancela, redirigimos a la tarea.
-    redirect(new moodle_url('/mod/assign/view.php', ['id' => $cmid]));
+    // Si el formulario fue cancelado, redirige de vuelta a la tarea.
+    redirect(new moodle_url('/mod/assign/view.php', ['id' => $id]));
+
 } else if ($data = $mform->get_data()) {
-    // Si envió datos válidos:
-    
-    // Aquí podrías hacer la llamada a tu IA o guardar algo en la BD.
-    // De momento solo mostramos el contenido enviado.
+    // Si los datos fueron enviados y validados correctamente:
     echo $OUTPUT->header();
-    echo html_writer::tag('h3', 'Data submitted:');
+    echo html_writer::tag('h3', 'Datos enviados por el usuario:');
     echo html_writer::alist((array)$data);
     echo $OUTPUT->footer();
-    exit; // Terminar para que no siga mostrando el form.
+    exit;
 }
 
-// Parte 6: Mostrar el formulario si no ha sido enviado aún.
+// Mostrar el formulario si aún no fue enviado.
 echo $OUTPUT->header();
 $mform->display();
 echo $OUTPUT->footer();
