@@ -38,6 +38,9 @@ class aiform extends \moodleform {
         // Retroalimentación (visualización simulada, no editable)
         $mform->addElement('static', 'feedbacksummary', get_string('feedbacksummary', 'local_aigrading'), get_string('nofeedbackyet', 'local_aigrading'));
 
+        $mform->addElement('hidden', 'courseid');
+        $mform->setType('courseid', PARAM_INT);
+
         // ¿Está satisfecho con la nota?
         $mform->addElement('html', '<p>' . get_string('satisfiedquestion', 'local_aigrading') . '</p>');
         $mform->addElement('submit', 'satisfiedyes', get_string('yes', 'local_aigrading'));
