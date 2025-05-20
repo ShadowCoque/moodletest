@@ -22,7 +22,7 @@ class aiform extends \moodleform {
         // Soluciones correctas (filemanager)
         $mform->addElement('filemanager', 'solutionfiles', get_string('solution', 'local_aigrading'), null, [
             'subdirs' => 0,
-            'maxbytes' => 10485760, // 10 MB
+            'maxbytes' => 5, // 10 MB
             'maxfiles' => 5,
             'accepted_types' => '*',
         ]);
@@ -30,7 +30,7 @@ class aiform extends \moodleform {
         // Entrenamiento al modelo (filemanager)
         $mform->addElement('filemanager', 'trainingfiles', get_string('training', 'local_aigrading'), null, [
             'subdirs' => 0,
-            'maxbytes' => 10485760,
+            'maxbytes' => 5,
             'maxfiles' => 5,
             'accepted_types' => '*',
         ]);
