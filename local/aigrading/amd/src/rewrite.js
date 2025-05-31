@@ -14,7 +14,8 @@ define(['jquery'], function($) {
                     success: function(response) {
                         if (response.success) {
                             $('#id_rubric').val(response.rubric);
-                            $('#id_feedbacksummary').html(response.feedbacksummary);
+                            //$('#id_feedbacksummary').html(response.feedbacksummary);
+                            $('#custom_feedbacksummary').html(response.feedbacksummary);
                         } else {
                             alert('Error: ' + response.message);
                         }

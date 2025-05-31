@@ -37,7 +37,14 @@ class aiform extends \moodleform {
         ]);
 
         // Retroalimentación (visualización simulada, no editable)
-        $mform->addElement('static', 'feedbacksummary', get_string('feedbacksummary', 'local_aigrading'), get_string('nofeedbackyet', 'local_aigrading'));
+        //$mform->addElement('static', 'feedbacksummary', get_string('feedbacksummary', 'local_aigrading'), get_string('nofeedbackyet', 'local_aigrading'));
+        $mform->addElement('html', '
+            <div class="form-group">
+                <label for="custom_feedbacksummary">' . get_string('feedbacksummary', 'local_aigrading') . '</label>
+                <div id="custom_feedbacksummary">' . get_string('nofeedbackyet', 'local_aigrading') . '</div>
+            </div>
+        ');
+
 
         $mform->addElement('hidden', 'courseid');
         $mform->setType('courseid', PARAM_INT);
