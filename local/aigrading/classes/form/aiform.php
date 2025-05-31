@@ -10,6 +10,7 @@ class aiform extends \moodleform {
     public function definition() {
         $mform = $this->_form;
 
+        $mform->addElement('header', 'title', get_string('title1', 'local_aigrading'));
         // Enunciado del problema
         $mform->addElement('textarea', 'description', get_string('description', 'local_aigrading'), 'wrap="virtual" rows="5" cols="80"');
         $mform->setType('description', PARAM_TEXT);

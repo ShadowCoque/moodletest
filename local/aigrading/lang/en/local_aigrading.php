@@ -36,3 +36,4 @@ $string['nofeedbackyet'] = 'No feedback has been generated yet.';
 $string['satisfiedquestion'] = 'Are you satisfied with the grade?';
 $string['yes'] = 'Yes';
 $string['no'] = 'No';
+$string['title1'] = 'AI Grading';
