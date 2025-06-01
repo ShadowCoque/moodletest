@@ -37,3 +37,5 @@ $string['satisfiedquestion'] = 'Are you satisfied with the grade?';
 $string['yes'] = 'Yes';
 $string['no'] = 'No';
 $string['title1'] = 'AI Grading';
+$string['evaluate'] = 'Evaluate';
+$string['studentselection'] = 'Please select a student to be graded by AI';

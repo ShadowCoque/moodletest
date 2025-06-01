@@ -36,6 +36,11 @@ class aiform extends \moodleform {
             'accepted_types' => '*',
         ]);
 
+        // Agrupamos los dos botones con un contenedor HTML.
+        $mform->addElement('html', '<div class="d-flex justify-content-center gap-3">');
+        $mform->addElement('submit', 'evaluate', get_string('evaluate', 'local_aigrading'));
+        $mform->addElement('html', '</div>');
+
         // Retroalimentación (visualización simulada, no editable)
         //$mform->addElement('static', 'feedbacksummary', get_string('feedbacksummary', 'local_aigrading'), get_string('nofeedbackyet', 'local_aigrading'));
         $mform->addElement('html', '
@@ -51,7 +56,19 @@ class aiform extends \moodleform {
 
         // ¿Está satisfecho con la nota?
         $mform->addElement('html', '<p>' . get_string('satisfiedquestion', 'local_aigrading') . '</p>');
+
+        // Agrupamos los dos botones con un contenedor HTML.
+        $mform->addElement('html', '<div class="d-flex justify-content-center gap-3">');
+
         $mform->addElement('submit', 'satisfiedyes', get_string('yes', 'local_aigrading'));
+
         $mform->addElement('submit', 'satisfiedno', get_string('no', 'local_aigrading'));
+
+        $mform->addElement('html', '</div>');
+
+        #Contenedor ancla
+        $mform->addElement('html', '<div id="student-selection-target"></div>'); 
+
+
     }
 }
