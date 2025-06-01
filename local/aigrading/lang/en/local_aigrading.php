@@ -38,4 +38,4 @@ $string['yes'] = 'Yes';
 $string['no'] = 'No';
 $string['title1'] = 'AI Grading';
 $string['evaluate'] = 'Evaluate';
-$string['studentselection'] = 'Please select a student to be graded by AI';
+$string['studentselection'] = 'Students to be graded by AI';

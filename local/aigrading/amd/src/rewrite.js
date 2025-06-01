@@ -8,7 +8,7 @@ define(['jquery'], function($) {
 
     return {
         init: function() {
-            console.log('📦 rewrite.js: init called');
+            console.log('📦 rewrite.js: init called');            
 
             $('#id_satisfiedno').on('click', function(e) {
                 e.preventDefault();
