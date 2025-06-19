@@ -85,7 +85,8 @@ define(['jquery'], function($) {
                                 container.append(checkbox);
                             });
                     
-                            const confirmBtn = $(`<button class="btn btn-primary mt-2" id="confirm-selection">Confirm Selection</button>`);
+                            //const confirmBtn = $(`<button class="btn btn-primary mt-2" id="confirm-selection">Confirm Selection</button>`);
+                            const confirmBtn = $('<button type="button" class="btn btn-primary mt-2" id="confirm-selection">Confirm Selection</button>');
                             confirmBtn.on('click', function() {
                                 // Redirección o lógica futura
                                 window.location.href = M.cfg.wwwroot + '/local/aigrading/next_interface.php';
@@ -93,9 +94,13 @@ define(['jquery'], function($) {
                     
                             container.append(confirmBtn);
                     
-                            // ✅ Añade debajo del contenedor común de los botones
+                            // ✅ Añade debajo del contenedor común de los botones 
+                            /*
                             const buttonContainer = $('#student-selection-target').html(container); // <- asumiendo div.form-group
-                            buttonContainer.append(container);
+                            buttonContainer.append(container);*/
+                            const buttonContainer = $('#student-selection-target');
+                            buttonContainer.empty().append(container);
+
 
                         } else {
                             alert('❌ Error: ' + response.message);
