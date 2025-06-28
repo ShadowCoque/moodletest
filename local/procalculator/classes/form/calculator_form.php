@@ -39,12 +39,11 @@ class calculator_form extends \moodleform { //  " \moodleform le dice a PHP que 
         // etiqueta para mostrar el resultado
         $mform->addElement('text', 'result', get_string('result', 'local_procalculator'));
         $mform->setType('result', PARAM_TEXT);
-        $mform->freeze('result'); // para que no se pueda editar
+        //$mform->setAttributes(['readonly' => 'readonly', 'id' => 'resultado']); // para que no se pueda editar
 
         // Campo oculto para conservar el course_id
         $mform->addElement('hidden', 'course_id', optional_param('course_id', 0, PARAM_INT));
         $mform->setType('course_id', PARAM_INT);
-
 
     }
 

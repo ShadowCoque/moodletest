@@ -61,7 +61,7 @@ $calculatorform = new \local_procalculator\form\calculator_form(); // se instanc
 // }
 
 
-
+/* JS */
 // $PAGE->requires->js_init_code("
 //     console.log('JS cargado correctamente del lado del cliente');
 //     const formulario = document.getElementById('calculatorform');
@@ -93,7 +93,9 @@ $calculatorform = new \local_procalculator\form\calculator_form(); // se instanc
 //         }
 //     });
 // ");
-$PAGE->requires->js_init_code("
+
+
+/*$PAGE->requires->js_init_code("
     console.log('JS cargado correctamente del lado del cliente');
 
     const formulario = document.getElementById('calculatorform');
@@ -139,7 +141,15 @@ $PAGE->requires->js_init_code("
 
         resultField.value = resultado;
     });
-");
+");*/
+
+/* JS */
+
+
+
+
+$PAGE->requires->js_call_amd('local_procalculator/rewrite', 'init'); //cargar rewrite.js y ejecutara la funcion init() al cargar la pagina
+
 
 // $OUTPUT es un objeto global proporcionado por Moodle (instancia de core_renderer)
 // que contiene métodos para renderizar partes de la página HTML (cabecera, pie, notificaciones, etc).
@@ -150,37 +160,4 @@ echo $OUTPUT->header();
 echo '<h1>' . get_string('pluginname', 'local_procalculator') .'</h1>';
 echo '<p>' . get_string('description', 'local_procalculator') .'</p>';
 $calculatorform->display();
-// $OUTPUT->footer() imprime el cierre del HTML generado por Moodle (</body></html> y scripts JS incluidos).
-// echo '<script>
-//     console.log("JS cargado correctamente del lado del cliente");
-//     const formulario = document.getElementById("calculatorform");
-    
-//     function validateForm() {
-//         let firstNumber = document.getElementById("firstNumber").value;
-//         let secondNumber = document.getElementById("secondNumber").value;
-//         if (firstNumber == "" || secondNumber == "") {
-//             alert("Por favor, ingresa ambos números.");
-//             return false;
-//         }
-//         if()
-//     }
-    
-//     formulario.addEventListener("submit", function(event) {
-//         event.preventDefault();  // evita envío automático del formulario
-
-//         const botonPresionado = event.submitter;
-//         console.log("Nombre del botón:", botonPresionado.name);
-//         console.log("Valor del botón:", botonPresionado.value);
-
-//         if(botonPresionado.name == "sumsubmit") {
-//             document.getElementById("result").value = parseInt(document.getElementById("firstNumber").value) + parseInt(document.getElementById("secondNumber").value);
-//         } else if(botonPresionado.name == "substractsubmit") {
-//             document.getElementById("result").value = parseInt(document.getElementById("firstNumber").value) - parseInt(document.getElementById("secondNumber").value);
-//         } else if(botonPresionado.name == "multiplicationsubmit") {
-//             document.getElementById("result").value = parseInt(document.getElementById("firstNumber").value) * parseInt(document.getElementById("secondNumber").value);
-//         } else if(botonPresionado.name == "divisionsubmit") {
-//             document.getElementById("result").value = parseInt(document.getElementById("firstNumber").value) / parseInt(document.getElementById("secondNumber").value);
-//         }
-//     });
-// </script>';
 echo $OUTPUT->footer();
